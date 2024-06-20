@@ -23,5 +23,6 @@ urlpatterns = [
     path('', task_manager_views.index, name='index'),
     path('contact', task_manager_views.contact, name='contact'),
     path('about-us', task_manager_views.about, name='about'),
-    path('taskmanager/', include('task_manager.urls')),
+    path('taskmanager/', include('task_manager_app.urls')),
+    path('account/', include('user_app.urls')),
 ]

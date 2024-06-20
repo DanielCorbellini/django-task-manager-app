@@ -43,6 +43,9 @@
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
           <a class="nav-item nav-link" href="{% url 'index' %}">Home</a>
+          <a class="nav-item nav-link" href="{% url 'todolist' %}">Todo List</a>
+          <a class="nav-item nav-link" href="{% url 'contact' %}">Contact Us</a>
+          <a class="nav-item nav-link" href="{% url 'about' %}">About Us</a>
         </div>
       </div>
       {% if user.is_authenticated %}
@@ -57,12 +60,12 @@
         </a>
       </div>
       {% else %}
-      <a href="#">
+      <a href="{% url 'login' %}">
         <button class="btn btn-success mr-2 my-2 my-sm-0" type="submit">
           Login
         </button>
       </a>
-      <a href="#">
+      <a href="{% url 'register' %}">
         <button class="btn btn-primary my-2 my-sm-0" type="submit">
           Register
         </button>

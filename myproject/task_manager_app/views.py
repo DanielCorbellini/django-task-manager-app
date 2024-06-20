@@ -4,9 +4,10 @@ from django.contrib import messages
 from django.core.paginator import Paginator
 
 
+from django.contrib.auth.decorators import login_required
 
-from myproject.task_manager_app.forms import TaskForm
-from myproject.task_manager_app.models import TaskList
+from task_manager_app.forms import TaskForm
+from task_manager_app.models import TaskList
 
 def login(TemplateView):
     template_name = 'login.html'
@@ -32,8 +33,8 @@ def about(request):
     return render(request, 'about.html', context)
 
 """Todo views"""
-
 #CREATE AND READ
+@login_required
 def todolist(request):
     if request.method == "POST":
         form = TaskForm(request.POST or None)
@@ -52,6 +53,7 @@ def todolist(request):
         return render(request, 'todolist.html', {'all_tasks' : all_tasks})
     
 #UPDATE
+@login_required
 def edit_task(request, task_id):
     if request.method == "PUT":
         task = TaskList.objects.get(pk=task_id)
@@ -66,6 +68,7 @@ def edit_task(request, task_id):
         return render(request, 'edit.html', {'task_obj':task_obj})
 
 #DELETE
+@login_required
 def delete_task(request, task_id):
     task = TaskList.objects.get(pk=task_id)
     if task.manage == request.user:
@@ -75,6 +78,7 @@ def delete_task(request, task_id):
         return redirect('todolist')
 
 """Complete and pending tasks"""
+@login_required
 def complete_task(request, task_id):
     task = TaskList.objects.get(pk=task_id)
     if task.manage == request.user:
@@ -85,6 +89,7 @@ def complete_task(request, task_id):
 
     return redirect('todolist')
 
+@login_required
 def pending_task(request, task_id):
     task = TaskList.objects.get(pk=task_id)
     task.done = False
